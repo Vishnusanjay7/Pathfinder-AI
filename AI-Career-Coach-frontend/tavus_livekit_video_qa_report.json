@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "provider": "Tavus CVI",
+  "livekit": "LiveKit Cloud WebRTC",
+  "personas_audited": [
+    {
+      "id": "female_hr_01",
+      "name": "Priya Sharma",
+      "role": "Senior Talent Acquisition Lead",
+      "faceId": "r9fa0878977a",
+      "palId": "pb87e71797da"
+    },
+    {
+      "id": "female_hr_02",
+      "name": "Neha Verma",
+      "role": "HR Director & People Operations",
+      "faceId": "r68fe8906e53",
+      "palId": "pb87e71797da"
+    },
+    {
+      "id": "male_tech_01",
+      "name": "Arjun Mehta",
+      "role": "VP of Engineering & Tech Lead",
+      "faceId": "ra066ab28864",
+      "palId": "pb87e71797da"
+    },
+    {
+      "id": "male_tech_02",
+      "name": "Rohit Singh",
+      "role": "Global Hiring Manager",
+      "faceId": "r1a4e22fa0d9",
+      "palId": "pb87e71797da"
+    }
+  ],
+  "turns_executed": 5,
+  "auditLog": [
+    "[STEP 1] Generating candidate authentication session...",
+    "  ✓ Candidate authenticated in 2250ms",
+    "\n[STEP 2] Auditing 4 Professional Tavus Personas in Studio Selection...",
+    "  - Persona [Priya Sharma] (Face: r9fa0878977a, PAL: pb87e71797da): PASS",
+    "  - Persona [Neha Verma] (Face: r68fe8906e53, PAL: pb87e71797da): PASS",
+    "  - Persona [Arjun Mehta] (Face: ra066ab28864, PAL: pb87e71797da): PASS",
+    "  - Persona [Rohit Singh] (Face: r1a4e22fa0d9, PAL: pb87e71797da): PASS",
+    "  ✓ Session configured with Priya Sharma (Face: r9fa0878977a, PAL: pb87e71797da)",
+    "\n[STEP 3] Launching LiveKit + Tavus Real-Time Video Room...",
+    "  ✓ Reached Interview Room in 7705ms",
+    "\n[STEP 4] Auditing HTML5 Video Elements & Zero 3D Canvas / Photo Overlays...",
+    "  - Active Video Stream Elements in Room: 2 (PASS)",
+    "  - 3D Three.js Canvases in Room: 0 (PASS)",
+    "  - Candidate Webcam Video Preview: PASS",
+    "  - Professional Corporate Office Setting: PASS",
+    "\n[STEP 5] Executing 5 Interactive Conversational Dialogue Rounds with OpenRouter & Deepgram...",
+    "  --- Question Round 1 / 5 ---",
+    "    ✓ Round 1 answer submitted & turn processed (2082ms)",
+    "  --- Question Round 2 / 5 ---",
+    "    ✓ Round 2 answer submitted & turn processed (2175ms)",
+    "  --- Question Round 3 / 5 ---",
+    "    ✓ Round 3 answer submitted & turn processed (1937ms)",
+    "  --- Question Round 4 / 5 ---",
+    "    ✓ Round 4 answer submitted & turn processed (1963ms)",
+    "  --- Question Round 5 / 5 ---",
+    "    ✓ Final round submitted. Awaiting OpenRouter comprehensive evaluation report...",
+    "\n[STEP 6] Validating Comprehensive Interview Evaluation Report...",
+    "  ✓ Reached Report Page in 5348ms",
+    "  - Overall Score: PASS",
+    "  - Technical Accuracy: PASS",
+    "  - Communication & Fluency: PASS",
+    "  - Strengths Breakdown: PASS",
+    "  - Skill Gaps & Weaknesses: PASS",
+    "  - Placement Readiness: PASS",
+    "\n[STEP 7] Performing Cross-Module Regression Verification...",
+    "  - Module [Dashboard]: PASS",
+    "  - Module [Resume Builder]: PASS",
+    "  - Module [Jobs]: PASS",
+    "  - Module [Coding Assessment]: PASS",
+    "  - Module [Skill Assessment]: PASS",
+    "  - Module [Learning Center]: PASS",
+    "\n════════════════════════════════════════════════════════════════════════════",
+    "   FINAL AUDIT VERDICT: PRODUCTION READY (TAVUS + LIVEKIT ACTIVE)",
+    "════════════════════════════════════════════════════════════════════════════\n"
+  ]
+}

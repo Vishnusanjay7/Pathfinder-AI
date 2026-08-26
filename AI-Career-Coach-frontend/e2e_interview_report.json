@@ -1,0 +1,41 @@
+{
+  "auth": {
+    "status": "PASS",
+    "latency_ms": 796
+  },
+  "interviewerSelection": {
+    "status": "PASS",
+    "latency_ms": 2184
+  },
+  "interviewRoom": {
+    "status": "PASS"
+  },
+  "livekitSession": {
+    "status": "PASS"
+  },
+  "conversationalFlow": {
+    "status": "PASS"
+  },
+  "reportGeneration": {
+    "status": "PASS"
+  },
+  "mediaCleanup": {
+    "status": "PASS"
+  },
+  "regression": {
+    "status": "PASS",
+    "modules": {
+      "Dashboard": "PASS",
+      "Resume Builder": "PASS",
+      "Jobs": "PASS",
+      "Coding Assessment": "PASS",
+      "Skill Assessment": "PASS",
+      "Learning Center": "PASS"
+    }
+  },
+  "metrics": {
+    "startup_latency_ms": 7187,
+    "evaluation_latency_ms": 4796
+  },
+  "verdict": "PRODUCTION READY"
+}

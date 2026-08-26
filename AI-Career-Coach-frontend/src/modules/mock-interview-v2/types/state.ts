@@ -1,0 +1,23 @@
+export type InterviewerStateV2 =
+  | "IDLE"
+  | "CONNECTING"
+  | "PREPARING_QUESTION"
+  | "SPEAKING"
+  | "LISTENING"
+  | "THINKING"
+  | "NODDING"
+  | "PROCESSING_ANSWER"
+  | "COMPLETED"
+  | "ERROR";
+
+export type InterviewPhaseV2 =
+  | "WELCOME"
+  | "INTRODUCTION"
+  | "RESUME_DISCUSSION"
+  | "TECHNICAL"
+  | "PROJECT_DISCUSSION"
+  | "BEHAVIORAL"
+  | "FOLLOW_UP"
+  | "CANDIDATE_QUESTIONS"
+  | "FINAL"
+  | "REPORT";

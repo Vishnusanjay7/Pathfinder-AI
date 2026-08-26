@@ -1,0 +1,43 @@
+services:
+  # ── Backend FastAPI Web Service ──────────────────────────────────────────
+  - type: web
+    name: ai-career-coach-backend
+    env: python
+    region: oregon
+    plan: free
+    rootDir: AI-Career-Coach-Backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./ai_career_coach.db
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        value: http://localhost:3000
+      - key: OTP_PROVIDER
+        value: development
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DEEPGRAM_API_KEY
+        sync: false
+
+  # ── Frontend React Vite Static Site ─────────────────────────────────────────
+  - type: web
+    name: ai-career-coach-frontend
+    env: static
+    region: oregon
+    plan: free
+    rootDir: AI-Career-Coach-frontend
+    buildCommand: npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: ai-career-coach-backend
+          property: host
