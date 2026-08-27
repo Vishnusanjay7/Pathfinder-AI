@@ -2,12 +2,19 @@
   "name": "pathfinder-ai",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "workspaces": [
     "AI-Career-Coach-frontend"
   ],
   "scripts": {
     "dev": "npm run dev --workspace=AI-Career-Coach-frontend",
     "build": "npm run build --workspace=AI-Career-Coach-frontend",
+    "start": "node --import=tsx server.ts",
     "lint": "npm run lint --workspace=AI-Career-Coach-frontend"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1",
+    "tsx": "^4.23.12"
   }
 }
