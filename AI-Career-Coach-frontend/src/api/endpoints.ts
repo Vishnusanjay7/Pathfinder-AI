@@ -106,10 +106,14 @@ export const jobsAPI = {
     fd.append('job_description', jobDescription);
     return apiClient.post<JobMatchResponse>('/api/jobs/match', fd);
   },
-  recommend: (file?: File | null) => {
+  recommend: (file?: File | null, mode: 'resume' | 'assessment' = 'resume', assessmentId?: number) => {
+    const params = new URLSearchParams();
+    if (mode) params.append('mode', mode);
+    if (assessmentId) params.append('assessment_id', String(assessmentId));
+    const qs = params.toString() ? `?${params.toString()}` : '';
     const fd = new FormData();
     if (file) fd.append('file', file);
-    return apiClient.post<JobRecommendResponse>('/api/jobs/recommend', fd);
+    return apiClient.post<JobRecommendResponse>(`/api/jobs/recommend${qs}`, fd);
   },
   getApplications: () => apiClient.get<{ success: boolean; applications: import('../types').JobApplication[] }>('/api/jobs/applications'),
   apply: (payload: { job_key: string; job_title: string; company: string; location?: string; status?: import('../types').ApplicationStatus; apply_url?: string; salary_range?: string; deadline?: string }) =>

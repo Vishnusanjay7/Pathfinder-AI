@@ -249,6 +249,20 @@ export interface JobMatchResponse {
   result: JobMatchResult;
 }
 
+export interface SkillEvidenceItem {
+  skill: string;
+  status: 'MATCHED' | 'PARTIAL' | 'MISSING';
+  evidence: string;
+}
+
+export interface AssessmentValidationItem {
+  skill: string;
+  resume_status: string;
+  assessment_status: string;
+  final_confidence: string;
+  detail: string;
+}
+
 export interface JobRecommendation {
   job_key?: string;
   job_title: string;
@@ -263,13 +277,35 @@ export interface JobRecommendation {
   apply_url: string | null;       // Direct employer application URL
   job_url?: string | null;        // Job listing / redirect URL (e.g. Adzuna redirect_url)
   company_logo: string | null;
-  source: string;                 // 'adzuna' | 'jsearch' | 'local'
+  source: string;                 // 'adzuna' | 'jsearch' | 'local' | 'local_catalogue' | 'database'
   provider_job_id?: string;
   posted_date?: string | null;
   category?: string;
   match_percentage: number;
+  match_score?: number;
+  match_category?: string;
   matched_skills: string[];
+  matched_skills_with_evidence?: SkillEvidenceItem[];
+  partial_skills?: string[];
   missing_skills: string[];
+  critical_gaps?: string[];
+  technical_match?: number;
+  experience_match?: number;
+  responsibility_match?: number;
+  seniority_match?: number;
+  projects_match?: number;
+  domain_match?: number;
+  work_mode?: string;
+  application_status?: 'APPLICATION OPEN' | 'APPLICATION CLOSED';
+  closing_date?: string | null;
+  explanation?: string;
+  assessment_validation?: AssessmentValidationItem[];
+  full_responsibilities?: string[];
+  required_tech_stack?: string[];
+  preferred_tech_stack?: string[];
+  education_required?: string;
+  certifications_preferred?: string[];
+  domain?: string;
   status?: ApplicationStatus;
   application_date?: string | null;
   deadline?: string | null;
@@ -278,6 +314,8 @@ export interface JobRecommendation {
 export interface JobRecommendResponse {
   success: boolean;
   message: string;
+  mode?: string;
+  count?: number;
   recommendations: JobRecommendation[];
 }
 

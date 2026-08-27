@@ -205,6 +205,12 @@ def run_db_migrations():
                 if column not in existing_cols:
                     connection.execute(text(f"ALTER TABLE resumes ADD COLUMN {column} {definition}"))
 
+    if "jobs" in inspector.get_table_names():
+        existing_cols = {column["name"] for column in inspector.get_columns("jobs")}
+        with engine.begin() as connection:
+            if "user_id" not in existing_cols:
+                connection.execute(text("ALTER TABLE jobs ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE CASCADE"))
+
     if "job_applications" in inspector.get_table_names():
         existing_cols = {column["name"] for column in inspector.get_columns("job_applications")}
         app_additions = {

@@ -1,37 +1,119 @@
+# ==========================================
+# AI Career Coach — .gitignore
+# ==========================================
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env.local
+.env.production
+.env.staging
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# ==========================================
 # Dependencies
+# ==========================================
 node_modules/
 .venv/
 venv/
 ENV/
 env/
 
-# Production Build Outputs (Built by Render & Vercel)
+# ==========================================
+# Production Build Outputs
+# ==========================================
 AI-Career-Coach-frontend/dist/
 dist/
 build/
 
+# ==========================================
+# Python
+# ==========================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ==========================================
 # Local Database & SQLite
+# ==========================================
 *.db
 *.sqlite
 *.sqlite3
-ai_career_coach.db
 
+# ==========================================
 # Generated Test Videos & Uploaded Artifacts
+# ==========================================
 AI-Career-Coach-Backend/static/videos/
 AI-Career-Coach-Backend/static/videos_v2/
 AI-Career-Coach-Backend/uploads/
 AI-Career-Coach-Backend/data/vector_store/
 AI-Career-Coach-Backend/data/company_knowledge/
 
-# Environment Variables & Secrets
-.env
-.env.local
-.env.production
+# ==========================================
+# Generated AI / Runtime Files
+# ==========================================
+generated/
+recordings/
+audio_cache/
+video_cache/
+logs/
 
-# Cache & Logs
-__pycache__/
-*.pyc
-.pytest_cache/
-*.log
-.ds_store
+# ==========================================
+# Cache & Temp
+# ==========================================
+.cache/
+tmp/
+temp/
+
+# ==========================================
+# IDE & Editor
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# OS
+# ==========================================
+.DS_Store
 Thumbs.db
+desktop.ini
+
+# ==========================================
+# Logs
+# ==========================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# Docker
+# ==========================================
+docker-compose.override.yml
+
+# ==========================================
+# QA Test Reports (generated)
+# ==========================================
+*qa_report.json
+*test_results.json
+*_report.json
+
+# ==========================================
+# Runtime Scratch Files
+# ==========================================
+scratch_*.py
+scratch_*.mjs
+qa_backend_results.json

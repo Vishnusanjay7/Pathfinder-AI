@@ -78,7 +78,7 @@ class TestMockInterviewAvatarAndOrder(unittest.TestCase):
         self.assertGreaterEqual(len(questions), 5)
         first_q = questions[0]
         self.assertNotEqual(first_q["question_type"], "Technical", "Question 1 MUST NOT start with Technical!")
-        self.assertIn(first_q["question_type"], ["HR", "Behavioral", "Self Introduction"])
+        self.assertIn(first_q["question_type"], ["HR", "Behavioral", "Self Introduction", "Personal"])
 
         # 4. Fetch details to verify persistence
         interview_id = data["interview_id"]

@@ -51,10 +51,15 @@ export const VRMAvatarPlayer: React.FC<VRMAvatarPlayerProps> = ({
   onSwitchMode,
 }) => {
   const interviewer = getAvatarById(avatarId);
-  const resolvedVrmUrl = vrmUrl || interviewer.vrmUrl || "/avatars/avaturn.glb";
+  let resolvedVrmUrl = vrmUrl || interviewer.vrmUrl || "/avatars/mpfb.glb";
+  if (resolvedVrmUrl.includes("female-1.vrm")) resolvedVrmUrl = "/avatars/mpfb.glb";
+  else if (resolvedVrmUrl.includes("female-2.vrm")) resolvedVrmUrl = "/avatars/brunette.glb";
+  else if (resolvedVrmUrl.includes("male-1.vrm")) resolvedVrmUrl = "/avatars/avaturn.glb";
+  else if (resolvedVrmUrl.includes("male-2.vrm")) resolvedVrmUrl = "/avatars/avatarsdk.glb";
+
   const name = interviewerName || interviewer.name;
   const role = interviewerRole || interviewer.role;
-  const bgUrl = interviewer.backgroundUrl || "/avatars/office_backdrop_3.jpg";
+  const bgUrl = interviewer.backgroundUrl || "/avatars/office_backdrop_1.jpg";
 
   return (
     <ThreeVRMAvatarCanvas

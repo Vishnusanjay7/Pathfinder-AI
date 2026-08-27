@@ -100,16 +100,17 @@ def match_resume(
 
 @router.post(
     "/recommend",
-    summary="Recommend Jobs Based On Resume"
+    summary="Recommend Jobs Based On Resume or Self-Assessment"
 )
 def recommend_jobs(
     file: Optional[UploadFile] = File(None),
+    mode: Optional[str] = "resume",
+    assessment_id: Optional[int] = None,
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     try:
         user_id = int(current_user["sub"])
-        parsed_resume = None
 
         if file and file.filename:
             if not file.filename.lower().endswith(".pdf"):
@@ -121,47 +122,55 @@ def recommend_jobs(
             if not resume_text.strip():
                 raise HTTPException(status_code=400, detail="Unable to extract text from resume.")
             parsed_resume = analyze_resume(resume_text)
+            recommendations = job_recommendation_service.recommend(parsed_resume)
         else:
-            active_resume = resume_service.get_active_resume(db, user_id)
-            if not active_resume:
-                raise HTTPException(
-                    status_code=400,
-                    detail="No active resume found. Please upload your resume in My Resume first."
-                )
-            if active_resume.analysis_data:
-                parsed_resume = active_resume.analysis_data
-            elif active_resume.raw_text:
-                parsed_resume = analyze_resume(active_resume.raw_text)
-
-        if not parsed_resume:
-            raise HTTPException(status_code=400, detail="Could not process resume details.")
-
-        recommendations = job_recommendation_service.recommend(parsed_resume)
-
-        # Merge with existing application statuses if any
-        apps = db.query(JobApplication).filter(JobApplication.user_id == user_id).all()
-        app_map = {a.job_key: a for a in apps}
-
-        enriched_recs = []
-        for rec in recommendations:
-            key = f"{rec.get('company','')}_{rec.get('job_title','')}".replace(" ", "_").lower()
-            rec["job_key"] = key
-            if key in app_map:
-                rec["status"] = app_map[key].status
-                rec["application_date"] = app_map[key].application_date.strftime("%d/%m/%Y") if app_map[key].application_date else None
-            else:
-                rec["status"] = "Recommended"
-                rec["application_date"] = None
-            enriched_recs.append(rec)
+            # Rebuilt recommendation engine (strictly >= 60% with evidence & assessment support)
+            recommendations = job_recommendation_service.recommend_for_user(
+                db=db,
+                user_id=user_id,
+                mode=mode or "resume",
+                assessment_id=assessment_id
+            )
 
         return {
             "success": True,
             "message": "Job recommendations generated successfully.",
-            "recommendations": enriched_recs
+            "mode": mode or "resume",
+            "count": len(recommendations),
+            "recommendations": recommendations
         }
 
     except HTTPException:
         raise
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get(
+    "/recommendations",
+    summary="Get Filtered Job Recommendations for User (Score >= 60%)"
+)
+def get_recommendations(
+    mode: str = "resume",
+    assessment_id: Optional[int] = None,
+    current_user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    try:
+        user_id = int(current_user["sub"])
+        recommendations = job_recommendation_service.recommend_for_user(
+            db=db,
+            user_id=user_id,
+            mode=mode,
+            assessment_id=assessment_id
+        )
+        return {
+            "success": True,
+            "mode": mode,
+            "count": len(recommendations),
+            "recommendations": recommendations
+        }
     except Exception as e:
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
@@ -239,8 +248,8 @@ def apply_or_save_job(
     readiness_rec = None
     if status_val == "Applied":
         is_eligible, status_code, reason, readiness_rec = job_readiness_service.check_eligibility_for_apply(db, user_id, payload.job_key)
-        if not is_eligible:
-            raise HTTPException(status_code=403, detail=f"Application blocked: {reason}")
+        if not is_eligible and status_code == "NO_ACTIVE_RESUME":
+            raise HTTPException(status_code=400, detail=f"Application blocked: {reason}")
 
     app_record = db.query(JobApplication).filter(
         JobApplication.user_id == user_id,

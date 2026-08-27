@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { codingAPI, skillAssessmentAPI, resumeAPI } from "../../api/endpoints";
@@ -80,6 +81,7 @@ interface QuestionAnswerState {
 }
 
 export default function AssessmentPage() {
+  const navigate = useNavigate();
   const [step, setStep] = useState<Step>("setup");
   const [role, setRole] = useState(roles[0]);
   const [level, setLevel] = useState<ExperienceLevel>("Beginner");
@@ -437,68 +439,71 @@ export default function AssessmentPage() {
       {/* ═══════════════════════════════════════
           2. MCQ STEP
           ═══════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════
+          2. FULL-SCREEN MCQ STEP
+          ═══════════════════════════════════════ */}
       {step === "mcq" && started && currentMcqQuestion && (
-        <PageWrapper
-          title="MCQ Skill Round"
-          subtitle={`Role: ${started.role} · Time Remaining: ${formatTime(timeRemaining)}`}
-        >
-          <div className="space-y-6 max-w-4xl mx-auto">
-            {/* Progress Header */}
-            <Card className="glass border-blue-500/20">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <span className="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-bold uppercase">
-                    MCQ Round · {started.role}
-                  </span>
-                  <h2 className="text-lg font-black text-[var(--text-primary)] mt-1">
-                    Question {currentMcqIndex + 1} of{" "}
-                    {started.questions.length}
-                  </h2>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-blue-400 glass px-3 py-1.5 rounded-xl flex items-center gap-1.5">
-                    <Clock size={14} /> {formatTime(timeRemaining)}
-                  </span>
-                  <span className="text-xs font-bold text-emerald-400 glass px-3 py-1.5 rounded-xl">
-                    {answeredMcqs} / {started.questions.length} Answered (
-                    {mcqProgress}%)
-                  </span>
-                </div>
+        <div className="fixed inset-0 z-50 bg-[var(--bg-primary)] text-[var(--text-primary)] w-screen h-screen overflow-y-auto flex flex-col justify-between select-none">
+          {/* Top Bar */}
+          <div className="glass-strong border-b border-[var(--border-primary)] px-6 py-3.5 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/25 flex items-center justify-center font-black text-xs">
+                MCQ
               </div>
-
-              <div className="mt-4 h-2 rounded-full glass overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full bg-blue-500"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${mcqProgress}%` }}
-                  transition={{ duration: 0.4 }}
-                />
+              <div>
+                <h1 className="text-sm font-black text-[var(--text-primary)]">
+                  Self-Assessment: {started.role}
+                </h1>
+                <p className="text-[11px] text-[var(--text-muted)]">
+                  Question {currentMcqIndex + 1} of {started.questions.length} · Topic: {currentMcqQuestion.topic}
+                </p>
               </div>
-            </Card>
+            </div>
 
-            {/* Question Card */}
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold text-blue-400 glass px-3 py-1.5 rounded-xl flex items-center gap-1.5 border border-blue-500/20">
+                <Clock size={14} /> {formatTime(timeRemaining)}
+              </span>
+              <span className="text-xs font-bold text-emerald-400 glass px-3 py-1.5 rounded-xl border border-emerald-500/20">
+                {answeredMcqs} / {started.questions.length} Answered ({mcqProgress}%)
+              </span>
+            </div>
+          </div>
+
+          {/* Progress Indicator Bar */}
+          <div className="w-full h-1.5 bg-white/5 shrink-0">
+            <motion.div
+              className="h-full bg-gradient-to-r from-blue-500 to-emerald-500"
+              initial={{ width: 0 }}
+              animate={{ width: `${mcqProgress}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+
+          {/* Main Question Workspace */}
+          <div className="flex-1 flex items-center justify-center p-6 max-w-4xl w-full mx-auto">
             <motion.div
               key={currentMcqIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25 }}
+              className="w-full space-y-6"
             >
-              <Card className="space-y-5">
+              <Card className="space-y-6 p-6 md:p-8 glass-strong border border-blue-500/20">
                 <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
-                  <span className="font-bold text-blue-400 uppercase tracking-wider">
+                  <span className="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full font-bold uppercase tracking-wider">
                     {currentMcqQuestion.topic}
                   </span>
-                  <span className="px-2 py-0.5 glass rounded font-medium">
-                    {currentMcqQuestion.difficulty}
+                  <span className="px-2.5 py-1 glass rounded-lg font-semibold text-[var(--text-secondary)]">
+                    Difficulty: {currentMcqQuestion.difficulty}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-[var(--text-primary)] leading-relaxed">
+                <h3 className="text-lg md:text-xl font-bold text-[var(--text-primary)] leading-relaxed">
                   {currentMcqIndex + 1}. {currentMcqQuestion.question}
                 </h3>
 
-                <div className="grid gap-3 md:grid-cols-2">
+                <div className="grid gap-3.5 md:grid-cols-2 pt-2">
                   {currentMcqQuestion.options.map((option) => (
                     <label
                       key={option}
@@ -508,61 +513,65 @@ export default function AssessmentPage() {
                           [currentMcqQuestion.id]: option,
                         }))
                       }
-                      className={`cursor-pointer rounded-xl glass border p-4 text-xs font-medium transition-all ${
+                      className={`cursor-pointer rounded-2xl glass border p-5 text-xs font-medium transition-all flex items-start gap-3 ${
                         mcqAnswers[currentMcqQuestion.id] === option
-                          ? "border-emerald-500/50 bg-emerald-500/10 text-[var(--text-primary)] shadow-lg shadow-emerald-500/10"
-                          : "border-[var(--border-primary)] text-[var(--text-secondary)] hover:border-white/15 hover:text-[var(--text-primary)]"
+                          ? "border-emerald-500/50 bg-emerald-500/15 text-[var(--text-primary)] shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500/30"
+                          : "border-[var(--border-primary)] text-[var(--text-secondary)] hover:border-white/20 hover:text-[var(--text-primary)] hover:bg-white/5"
                       }`}
                     >
                       <input
                         type="radio"
-                        className="mr-2"
+                        className="mt-0.5 accent-emerald-500"
                         name={currentMcqQuestion.id}
                         checked={
                           mcqAnswers[currentMcqQuestion.id] === option
                         }
                         onChange={() => {}}
                       />
-                      {option}
+                      <span className="leading-relaxed">{option}</span>
                     </label>
                   ))}
                 </div>
               </Card>
             </motion.div>
-
-            <div className="flex items-center justify-between pt-2">
-              <Button
-                variant="outline"
-                disabled={currentMcqIndex === 0}
-                onClick={() =>
-                  setCurrentMcqIndex((prev) => prev - 1)
-                }
-                leftIcon={<ArrowLeft size={16} />}
-              >
-                Previous Question
-              </Button>
-
-              {currentMcqIndex + 1 < started.questions.length ? (
-                <Button
-                  onClick={() =>
-                    setCurrentMcqIndex((prev) => prev + 1)
-                  }
-                  rightIcon={<ArrowRight size={16} />}
-                >
-                  Next Question
-                </Button>
-              ) : (
-                <Button
-                  isLoading={loading}
-                  onClick={finishMcq}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold border-none shadow-lg shadow-emerald-500/25"
-                >
-                  Finish MCQs and Proceed
-                </Button>
-              )}
-            </div>
           </div>
-        </PageWrapper>
+
+          {/* Bottom Bar Navigation */}
+          <div className="glass-strong border-t border-[var(--border-primary)] px-6 py-3 flex items-center justify-between shrink-0">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={currentMcqIndex === 0}
+              onClick={() => setCurrentMcqIndex((prev) => prev - 1)}
+              leftIcon={<ArrowLeft size={16} />}
+            >
+              Previous Question
+            </Button>
+
+            <span className="text-xs font-bold text-[var(--text-muted)]">
+              Question {currentMcqIndex + 1} of {started.questions.length}
+            </span>
+
+            {currentMcqIndex + 1 < started.questions.length ? (
+              <Button
+                size="sm"
+                onClick={() => setCurrentMcqIndex((prev) => prev + 1)}
+                rightIcon={<ArrowRight size={16} />}
+              >
+                Next Question
+              </Button>
+            ) : (
+              <Button
+                size="sm"
+                isLoading={loading}
+                onClick={finishMcq}
+                className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold border-none shadow-lg shadow-emerald-500/25"
+              >
+                Finish MCQs and Proceed to Coding
+              </Button>
+            )}
+          </div>
+        </div>
       )}
 
       {/* ═══════════════════════════════════════
@@ -1010,6 +1019,41 @@ export default function AssessmentPage() {
                 </Card>
               </motion.div>
             </div>
+
+            {/* View Recommended Jobs Based on Assessment Banner */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Card className="glass-strong border border-indigo-500/30 p-6 text-center space-y-4 shadow-xl shadow-indigo-950/20">
+                <div className="max-w-xl mx-auto space-y-2">
+                  <span className="px-3 py-1 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
+                    <Sparkles size={13} /> Next Step: Skill-Verified Job Matching
+                  </span>
+                  <h3 className="text-xl md:text-2xl font-black text-[var(--text-primary)]">
+                    Find Jobs Matched to Your Verified Assessment Capabilities
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    We'll cross-reference your verified scores, strong skills, and resume evidence against available jobs to recommend high-matching roles (≥ 60% match threshold).
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-center gap-3 pt-2">
+                  <Button
+                    variant="gradient"
+                    size="lg"
+                    onClick={() => {
+                      const aId = started?.assessment_id || 0;
+                      navigate(`/jobs?mode=assessment&id=${aId}`);
+                    }}
+                    className="px-8 py-3.5 text-sm font-bold shadow-lg shadow-indigo-600/30 flex items-center gap-2"
+                  >
+                    View Recommended Jobs Matching This Assessment <ArrowRight size={16} />
+                  </Button>
+                </div>
+              </Card>
+            </motion.div>
           </div>
         </PageWrapper>
       )}
