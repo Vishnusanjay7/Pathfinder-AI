@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -16,12 +16,12 @@ const distDir = path.join(__dirname, 'dist');
 app.use(express.static(distDir));
 
 // Health check route
-app.get('/health', (_req: Request, res: Response) => {
+app.get('/health', (_req, res) => {
   res.status(200).send('OK');
 });
 
 // SPA fallback
-app.get('*', (_req: Request, res: Response) => {
+app.get('*', (_req, res) => {
   const indexPath = path.join(distDir, 'index.html');
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);

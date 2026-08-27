@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "npm run dev --workspace=AI-Career-Coach-frontend",
     "build": "npm run build --workspace=AI-Career-Coach-frontend",
-    "start": "node --import=tsx server.ts",
+    "start": "node server.js",
     "lint": "npm run lint --workspace=AI-Career-Coach-frontend"
   },
   "dependencies": {
