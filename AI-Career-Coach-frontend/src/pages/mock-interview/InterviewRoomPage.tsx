@@ -444,7 +444,7 @@ export default function InterviewRoomPage() {
       {/* ── 2. Main Stage Grid (Left: Large AI Lip-Synced Human Interviewer, Right: Candidate Camera & Live Transcript) ── */}
       <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3.5 p-3.5 pb-24 overflow-hidden">
         {/* LEFT / MAIN STAGE (7 cols on desktop): Large Realistic Human Interviewer in Corporate Office */}
-        <div className="lg:col-span-7 xl:col-span-8 relative w-full h-full min-h-[340px] rounded-2xl overflow-hidden shadow-2xl border border-[#1E3150] bg-black flex flex-col">
+        <div className="interviewer-frame lg:col-span-7 xl:col-span-8 relative w-full h-full min-h-[340px] rounded-2xl overflow-hidden shadow-2xl border border-[#1E3150] bg-black flex flex-col">
           <RealisticHumanInterviewer
             avatarId={avatarId}
             interviewer={interviewerProfile}

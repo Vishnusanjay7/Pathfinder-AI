@@ -63,9 +63,200 @@ function addMesh(
   return m;
 }
 
+// ── Helper: Avatar Environment & Posture Archetype Config ─────────────────────
+export interface AvatarRoomProfile {
+  themeName: string;
+  plaqueTitle: string;
+  plaqueSubtitle: string;
+  badgeColor: string;
+  wallColor: number;
+  slatWoodShades: string[];
+  trimColor: number;
+  trimRoughness: number;
+  trimMetalness: number;
+  coveColor: number;
+  coveIntensity: number;
+  deskColor: number;
+  deskRoughness: number;
+  deskMetalness: number;
+  chairLeatherColor: number;
+  keyLightColor: number;
+  keyLightIntensity: number;
+  fillLightColor: number;
+  fillLightIntensity: number;
+  bounceLightColor: number;
+  deskAccessoryType: "hr_director" | "tech_architect" | "vp_strategy" | "infra_manager";
+  plantType: "snake_plant" | "bonsai" | "fiddle_leaf" | "succulents";
+  posture: {
+    spineLean: number;
+    upperSpineLean: number;
+    headTilt: number;
+    handDistX: number;
+    handPosY: number;
+    fingerCurl: number;
+    speakingGestureAmp: number;
+    listeningNodAmp: number;
+  };
+}
+
+export function getAvatarRoomProfile(modelUrl: string, name: string): AvatarRoomProfile {
+  const m = (modelUrl || "").toLowerCase();
+  const n = (name || "").toLowerCase();
+
+  if (m.includes("avaturn") || n.includes("arjun") || n.includes("male_hr")) {
+    // 3. Arjun Mehta - VP Talent & Leadership Strategy (Corner Office)
+    return {
+      themeName: "Sunlit High-Rise Executive Corner Office",
+      plaqueTitle: "NEXUS GLOBAL TALENT SUITE",
+      plaqueSubtitle: "VP EXECUTIVE PEOPLE STRATEGY",
+      badgeColor: "#3b82f6",
+      wallColor: 0xe5dfd6,
+      slatWoodShades: ["#5c2c16", "#6b351c", "#4d2311", "#753c20", "#522510"],
+      trimColor: 0x5a483a,
+      trimRoughness: 0.28,
+      trimMetalness: 0.75,
+      coveColor: 0xffdfa8,
+      coveIntensity: 2.6,
+      deskColor: 0x3e2015,
+      deskRoughness: 0.32,
+      deskMetalness: 0.04,
+      chairLeatherColor: 0x1c1714,
+      keyLightColor: 0xfff9ef,
+      keyLightIntensity: 1.50,
+      fillLightColor: 0xe8edf2,
+      fillLightIntensity: 0.50,
+      bounceLightColor: 0xfde68a,
+      deskAccessoryType: "vp_strategy",
+      plantType: "fiddle_leaf",
+      posture: {
+        spineLean: -0.028,
+        upperSpineLean: -0.018,
+        headTilt: 0.0,
+        handDistX: 0.195,
+        handPosY: 0.785,
+        fingerCurl: 0.18,
+        speakingGestureAmp: 0.007,
+        listeningNodAmp: 0.024,
+      },
+    };
+  }
+
+  if (m.includes("brunette") || n.includes("meera") || n.includes("female_tech")) {
+    // 2. Meera Iyer - Principal Technical Hiring Architect (Innovation Lab)
+    return {
+      themeName: "Systems Architecture & Innovation Lab",
+      plaqueTitle: "NEXUS INNOVATION LAB",
+      plaqueSubtitle: "SYSTEM DESIGN & DISTRIBUTED SYSTEMS",
+      badgeColor: "#06b6d4",
+      wallColor: 0xd2d7e0,
+      slatWoodShades: ["#2b303c", "#343b49", "#232731", "#3a4253", "#1f242d"],
+      trimColor: 0x717f94,
+      trimRoughness: 0.20,
+      trimMetalness: 0.88,
+      coveColor: 0x38bdf8,
+      coveIntensity: 2.5,
+      deskColor: 0x242831,
+      deskRoughness: 0.42,
+      deskMetalness: 0.08,
+      chairLeatherColor: 0x161920,
+      keyLightColor: 0xf0f7ff,
+      keyLightIntensity: 1.45,
+      fillLightColor: 0xdbeafe,
+      fillLightIntensity: 0.52,
+      bounceLightColor: 0xbae6fd,
+      deskAccessoryType: "tech_architect",
+      plantType: "bonsai",
+      posture: {
+        spineLean: -0.040,
+        upperSpineLean: -0.024,
+        headTilt: 0.022,
+        handDistX: 0.180,
+        handPosY: 0.785,
+        fingerCurl: 0.20,
+        speakingGestureAmp: 0.005,
+        listeningNodAmp: 0.022,
+      },
+    };
+  }
+
+  if (m.includes("avatarsdk") || n.includes("rohan") || n.includes("male_tech")) {
+    // 4. Rohan Verma - Senior Staff Infrastructure Manager (Systems Engineering)
+    return {
+      themeName: "Corporate Executive Engineering Office",
+      plaqueTitle: "NEXUS SYSTEMS ENGINEERING",
+      plaqueSubtitle: "INFRASTRUCTURE & PLATFORM ARCHITECTURE",
+      badgeColor: "#10b981",
+      wallColor: 0xcfd3dc,
+      slatWoodShades: ["#242930", "#2f3540", "#1e2228", "#383f4c", "#1a1d22"],
+      trimColor: 0x64748b,
+      trimRoughness: 0.26,
+      trimMetalness: 0.82,
+      coveColor: 0x34d399,
+      coveIntensity: 2.3,
+      deskColor: 0x221f1d,
+      deskRoughness: 0.38,
+      deskMetalness: 0.05,
+      chairLeatherColor: 0x141517,
+      keyLightColor: 0xfaf5eb,
+      keyLightIntensity: 1.40,
+      fillLightColor: 0xd1d5db,
+      fillLightIntensity: 0.48,
+      bounceLightColor: 0xa7f3d0,
+      deskAccessoryType: "infra_manager",
+      plantType: "succulents",
+      posture: {
+        spineLean: -0.036,
+        upperSpineLean: -0.020,
+        headTilt: 0.0,
+        handDistX: 0.182,
+        handPosY: 0.788,
+        fingerCurl: 0.19,
+        speakingGestureAmp: 0.005,
+        listeningNodAmp: 0.023,
+      },
+    };
+  }
+
+  // 1. Priya Sharma (Default) - Senior Talent Acquisition Director (Executive Boardroom)
+  return {
+    themeName: "Executive Boardroom Suite",
+    plaqueTitle: "NEXUS EXECUTIVE BOARDROOM",
+    plaqueSubtitle: "TALENT & LEADERSHIP ACQUISITION",
+    badgeColor: "#f59e0b",
+    wallColor: 0xdbd6cd,
+    slatWoodShades: ["#684323", "#744b28", "#5f3d1e", "#7e532e", "#5a3719", "#6e4725"],
+    trimColor: 0x482d1c,
+    trimRoughness: 0.35,
+    trimMetalness: 0.35,
+    coveColor: 0xffe2b8,
+    coveIntensity: 2.4,
+    deskColor: 0x482d1c,
+    deskRoughness: 0.36,
+    deskMetalness: 0.04,
+    chairLeatherColor: 0x191a1e,
+    keyLightColor: 0xfff6e8,
+    keyLightIntensity: 1.40,
+    fillLightColor: 0xe6f0fa,
+    fillLightIntensity: 0.48,
+    bounceLightColor: 0xffe2c4,
+    deskAccessoryType: "hr_director",
+    plantType: "snake_plant",
+    posture: {
+      spineLean: -0.035,
+      upperSpineLean: -0.020,
+      headTilt: 0.0,
+      handDistX: 0.180,
+      handPosY: 0.785,
+      fingerCurl: 0.18,
+      speakingGestureAmp: 0.005,
+      listeningNodAmp: 0.022,
+    },
+  };
+}
+
 // ── Procedural Textures for Premium Corporate Architectural Realism ─────────
 
-function createAcousticSlatsTexture(): THREE.CanvasTexture {
+function createAcousticSlatsTexture(shades: string[]): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = 512;
   canvas.height = 512;
@@ -76,10 +267,10 @@ function createAcousticSlatsTexture(): THREE.CanvasTexture {
   ctx.fillStyle = "#141518";
   ctx.fillRect(0, 0, 512, 512);
 
-  // Vertical warm walnut wood slats (24px slat + 8px shadow gap = 32px pitch)
+  // Vertical wood slats (24px slat + 8px shadow gap = 32px pitch)
   const slatWidth = 24;
   const pitch = 32;
-  const woodShades = ["#684323", "#744b28", "#5f3d1e", "#7e532e", "#5a3719", "#6e4725"];
+  const woodShades = shades.length > 0 ? shades : ["#684323", "#744b28", "#5f3d1e", "#7e532e"];
 
   for (let x = 0; x < 512; x += pitch) {
     const baseColor = woodShades[Math.floor((x / pitch) % woodShades.length)];
@@ -87,7 +278,7 @@ function createAcousticSlatsTexture(): THREE.CanvasTexture {
     ctx.fillRect(x, 0, slatWidth, 512);
 
     // Beveled highlight on left edge of slat
-    ctx.fillStyle = "rgba(255, 235, 205, 0.22)";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
     ctx.fillRect(x, 0, 2, 512);
 
     // Shadow on right edge of slat
@@ -108,7 +299,7 @@ function createAcousticSlatsTexture(): THREE.CanvasTexture {
   return tex;
 }
 
-function createCorporateEmblemTexture(): THREE.CanvasTexture {
+function createCorporateEmblemTexture(title: string, subtitle: string, badgeColor: string): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = 512;
   canvas.height = 256;
@@ -128,19 +319,19 @@ function createCorporateEmblemTexture(): THREE.CanvasTexture {
   ctx.lineWidth = 4;
   ctx.strokeRect(8, 8, 496, 240);
 
-  // Minimalist modern tech icon (interconnected hexagon / nexus)
+  // Tech emblem icon
   ctx.save();
-  ctx.translate(105, 128);
-  ctx.strokeStyle = "#38bdf8";
+  ctx.translate(90, 128);
+  ctx.strokeStyle = badgeColor;
   ctx.lineWidth = 5;
-  ctx.shadowColor = "rgba(56, 189, 248, 0.45)";
+  ctx.shadowColor = badgeColor;
   ctx.shadowBlur = 10;
 
   ctx.beginPath();
   for (let i = 0; i < 6; i++) {
     const angle = (i * Math.PI) / 3;
-    const px = Math.cos(angle) * 36;
-    const py = Math.sin(angle) * 36;
+    const px = Math.cos(angle) * 32;
+    const py = Math.sin(angle) * 32;
     if (i === 0) ctx.moveTo(px, py);
     else ctx.lineTo(px, py);
   }
@@ -150,19 +341,18 @@ function createCorporateEmblemTexture(): THREE.CanvasTexture {
   // Inner core
   ctx.fillStyle = "#ffffff";
   ctx.beginPath();
-  ctx.arc(0, 0, 10, 0, Math.PI * 2);
+  ctx.arc(0, 0, 9, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 
   // Clean corporate typography
   ctx.fillStyle = "#ffffff";
-  ctx.font = "bold 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-  ctx.fillText("NEXUS CAREERS", 175, 115);
+  ctx.font = "bold 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.fillText(title.slice(0, 24), 150, 115);
 
   ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
-  ctx.font = "600 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-  ctx.letterSpacing = "2.5px";
-  ctx.fillText("EXECUTIVE INTERVIEW SUITE", 175, 150);
+  ctx.font = "600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.fillText(subtitle.slice(0, 36), 150, 150);
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -201,7 +391,8 @@ function createCarpetTexture(): THREE.CanvasTexture {
 function buildRoom(
   scene: THREE.Scene,
   woodTex: THREE.Texture | null,
-  officeBgTex: THREE.Texture | null
+  officeBgTex: THREE.Texture | null,
+  profile: AvatarRoomProfile
 ) {
   const wallMat = (c: number) =>
     new THREE.MeshStandardMaterial({ color: c, roughness: 0.92, metalness: 0.01 });
@@ -222,21 +413,21 @@ function buildRoom(
   // Linear recessed LED light fixtures in ceiling
   const ledGlowMat = new THREE.MeshStandardMaterial({
     color: 0xffffff,
-    emissive: new THREE.Color(0xfff3db),
-    emissiveIntensity: 1.8,
+    emissive: new THREE.Color(profile.coveColor),
+    emissiveIntensity: 1.6,
     roughness: 0.2,
   });
   addMesh(scene, new THREE.BoxGeometry(0.12, 0.03, 3.2), ledGlowMat, [-0.9, 3.59, 0]);
   addMesh(scene, new THREE.BoxGeometry(0.12, 0.03, 3.2), ledGlowMat, [0.9, 3.59, 0]);
 
-  // 1.3 Back Architectural Feature Wall (Acoustic Wood Slats + Greige Plaster)
-  const greigeMat = wallMat(0xdbd6cd);
+  // 1.3 Back Architectural Feature Wall (Acoustic Wood Slats + Feature Plaster)
+  const roomWallMat = wallMat(profile.wallColor);
   // Left and right plaster return walls flanking the feature panel
-  addMesh(scene, new THREE.PlaneGeometry(1.6, 3.6), greigeMat, [-2.2, 1.8, -2.2], [0, 0, 0], false, true);
-  addMesh(scene, new THREE.PlaneGeometry(1.6, 3.6), greigeMat, [2.2, 1.8, -2.2], [0, 0, 0], false, true);
+  addMesh(scene, new THREE.PlaneGeometry(1.6, 3.6), roomWallMat, [-2.2, 1.8, -2.2], [0, 0, 0], false, true);
+  addMesh(scene, new THREE.PlaneGeometry(1.6, 3.6), roomWallMat, [2.2, 1.8, -2.2], [0, 0, 0], false, true);
 
   // Luxury Vertical Acoustic Wood Slat Feature Wall (Center)
-  const acousticTex = createAcousticSlatsTexture();
+  const acousticTex = createAcousticSlatsTexture(profile.slatWoodShades);
   const acousticMat = new THREE.MeshStandardMaterial({
     map: acousticTex,
     roughness: 0.45,
@@ -244,30 +435,34 @@ function buildRoom(
   });
   addMesh(scene, new THREE.PlaneGeometry(2.6, 3.3), acousticMat, [0, 1.75, -2.18], [0, 0, 0], false, true);
 
-  // Architectural Wood Trim Frame for Slat Panel
-  const trimWoodMat = new THREE.MeshStandardMaterial({ color: 0x482d1c, roughness: 0.35, metalness: 0.05 });
-  addMesh(scene, new THREE.BoxGeometry(0.04, 3.32, 0.04), trimWoodMat, [-1.31, 1.75, -2.17]);
-  addMesh(scene, new THREE.BoxGeometry(0.04, 3.32, 0.04), trimWoodMat, [1.31, 1.75, -2.17]);
-  addMesh(scene, new THREE.BoxGeometry(2.66, 0.04, 0.04), trimWoodMat, [0, 3.41, -2.17]);
+  // Architectural Frame Trim for Slat Panel
+  const trimMat = new THREE.MeshStandardMaterial({
+    color: profile.trimColor,
+    roughness: profile.trimRoughness,
+    metalness: profile.trimMetalness,
+  });
+  addMesh(scene, new THREE.BoxGeometry(0.04, 3.32, 0.04), trimMat, [-1.31, 1.75, -2.17]);
+  addMesh(scene, new THREE.BoxGeometry(0.04, 3.32, 0.04), trimMat, [1.31, 1.75, -2.17]);
+  addMesh(scene, new THREE.BoxGeometry(2.66, 0.04, 0.04), trimMat, [0, 3.41, -2.17]);
 
-  // Warm LED Architectural Cove Light above Acoustic Slats
-  const coveLight = new THREE.RectAreaLight(0xffe2b8, 2.4, 2.6, 0.15);
+  // Architectural Cove Light above Acoustic Slats
+  const coveLight = new THREE.RectAreaLight(profile.coveColor, profile.coveIntensity, 2.6, 0.15);
   coveLight.position.set(0, 3.38, -2.14);
   coveLight.rotation.x = Math.PI / 2;
   scene.add(coveLight);
 
   // Subtle Corporate Tech Emblem Plaque on Right Feature Wall
-  const emblemTex = createCorporateEmblemTexture();
+  const emblemTex = createCorporateEmblemTexture(profile.plaqueTitle, profile.plaqueSubtitle, profile.badgeColor);
   const emblemMat = new THREE.MeshStandardMaterial({
     map: emblemTex,
     roughness: 0.32,
     metalness: 0.25,
   });
-  addMesh(scene, new THREE.PlaneGeometry(0.72, 0.36), emblemMat, [1.35, 2.38, -2.17]);
-  addMesh(scene, new THREE.BoxGeometry(0.74, 0.38, 0.015), trimWoodMat, [1.35, 2.38, -2.18]);
+  addMesh(scene, new THREE.PlaneGeometry(0.74, 0.37), emblemMat, [1.35, 2.38, -2.17]);
+  addMesh(scene, new THREE.BoxGeometry(0.76, 0.39, 0.015), trimMat, [1.35, 2.38, -2.18]);
 
-  // Dark Bronze Architectural Baseboard Skirting
-  const baseboardMat = new THREE.MeshStandardMaterial({ color: 0x242220, roughness: 0.38, metalness: 0.65 });
+  // Dark Architectural Baseboard Skirting
+  const baseboardMat = new THREE.MeshStandardMaterial({ color: 0x1e2024, roughness: 0.38, metalness: 0.65 });
   addMesh(scene, new THREE.BoxGeometry(6.5, 0.10, 0.03), baseboardMat, [0, 0.05, -2.19]);
   addMesh(scene, new THREE.BoxGeometry(0.03, 0.10, 5.5), baseboardMat, [2.99, 0.05, 0]);
 
@@ -280,7 +475,7 @@ function buildRoom(
     const bgMat = new THREE.MeshBasicMaterial({
       map: officeBgTex,
       transparent: true,
-      opacity: 0.90,
+      opacity: 0.92,
     });
     addMesh(scene, new THREE.PlaneGeometry(6.2, 4.0), bgMat, [glassX - 0.5, 1.85, -0.2], [0, Math.PI / 2, 0]);
   }
@@ -305,39 +500,36 @@ function buildRoom(
   });
   addMesh(scene, new THREE.PlaneGeometry(4.8, 0.55), frostedMat, [glassX + 0.005, 1.40, 0], [0, Math.PI / 2, 0]);
 
-  // Matte Black Aluminum Architectural Mullions / Window Frame
+  // Architectural Mullions / Window Frame
   const mullionMat = new THREE.MeshStandardMaterial({ color: 0x18181b, roughness: 0.35, metalness: 0.85 });
-  // Horizontal frame rails
   addMesh(scene, new THREE.BoxGeometry(0.05, 0.06, 4.8), mullionMat, [glassX, 0.03, 0]);
   addMesh(scene, new THREE.BoxGeometry(0.05, 0.05, 4.8), mullionMat, [glassX, 1.12, 0]);
   addMesh(scene, new THREE.BoxGeometry(0.05, 0.05, 4.8), mullionMat, [glassX, 1.68, 0]);
   addMesh(scene, new THREE.BoxGeometry(0.05, 0.06, 4.8), mullionMat, [glassX, 3.57, 0]);
-  // Vertical mullion posts
   [-2.2, -1.1, 0.0, 1.1, 2.2].forEach((z) => {
     addMesh(scene, new THREE.BoxGeometry(0.05, 3.55, 0.05), mullionMat, [glassX, 1.8, z]);
   });
 
   // Soft Natural Daylight Light Source Streaming from Glass Wall
-  const dayWinLight = new THREE.RectAreaLight(0xfff7e8, 2.8, 3.6, 2.4);
+  const dayWinLight = new THREE.RectAreaLight(profile.keyLightColor, profile.keyLightIntensity * 1.8, 3.6, 2.4);
   dayWinLight.position.set(glassX + 0.2, 2.2, 0);
   dayWinLight.lookAt(0, 1.4, 0);
   scene.add(dayWinLight);
 
   // 1.5 Executive Architectural Display Niche on Right Wall
   const rightWallX = 2.98;
-  addMesh(scene, new THREE.PlaneGeometry(5.5, 3.6), greigeMat, [rightWallX, 1.8, 0], [0, -Math.PI / 2, 0], false, true);
+  addMesh(scene, new THREE.PlaneGeometry(5.5, 3.6), roomWallMat, [rightWallX, 1.8, 0], [0, -Math.PI / 2, 0], false, true);
 
-  // Recessed dark wood floating shelves
-  const shelfMat = new THREE.MeshStandardMaterial({ color: 0x3d2716, roughness: 0.38, metalness: 0.04 });
+  // Recessed floating shelves
+  const shelfMat = new THREE.MeshStandardMaterial({ color: profile.deskColor, roughness: 0.38, metalness: 0.04 });
   for (let i = 0; i < 3; i++) {
     const sy = 1.05 + i * 0.55;
     addMesh(scene, new THREE.BoxGeometry(0.24, 0.03, 1.35), shelfMat, [rightWallX - 0.12, sy, -0.85], [0, 0, 0], true, true);
-    // Subtle under-shelf warm LED strip
     addMesh(scene, new THREE.BoxGeometry(0.04, 0.008, 1.3), ledGlowMat, [rightWallX - 0.12, sy - 0.015, -0.85]);
   }
 
-  // Curated minimalist accessories on shelves (frosted glass cube award, technical books)
-  const awardMat = new THREE.MeshStandardMaterial({ color: 0x67e8f9, roughness: 0.1, transparent: true, opacity: 0.75 });
+  // Shelf Accents
+  const awardMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.1, transparent: true, opacity: 0.75 });
   addMesh(scene, new THREE.BoxGeometry(0.08, 0.14, 0.08), awardMat, [rightWallX - 0.12, 1.71, -1.2]);
 
   const bookTones = [0x1e293b, 0x0f172a, 0x334155, 0x1e3a5f, 0x27272a];
@@ -352,19 +544,80 @@ function buildRoom(
     );
   });
 
-  // 1.6 Architectural Corner Indoor Plant (Snake Plant in Fluted Ceramic Planter)
-  // Positioned in the far left corner near the glass window, framing the room without blocking interviewer
+  // 1.6 Architectural Corner Indoor Plant tailored to room profile
+  buildIndoorPlant(scene, profile.plantType);
+}
+
+// ── Architectural Corner Indoor Plant Builder ────────────────────────────────
+function buildIndoorPlant(scene: THREE.Scene, type: AvatarRoomProfile["plantType"]) {
   const plantX = -2.25;
   const plantZ = -1.75;
 
-  // Fluted Matte White Ceramic Planter Pot
+  if (type === "bonsai") {
+    // Minimalist Zen Bonsai / Architectural Ficus on elevated fluted pedestal
+    const pedestalMat = new THREE.MeshStandardMaterial({ color: 0x22242a, roughness: 0.32, metalness: 0.12 });
+    addMesh(scene, new THREE.CylinderGeometry(0.16, 0.18, 0.65, 20), pedestalMat, [plantX, 0.325, plantZ], [0, 0, 0], true, true);
+
+    const potMat = new THREE.MeshStandardMaterial({ color: 0x3b4252, roughness: 0.45 });
+    addMesh(scene, new THREE.CylinderGeometry(0.18, 0.14, 0.16, 20), potMat, [plantX, 0.73, plantZ], [0, 0, 0], true, true);
+
+    const trunkMat = new THREE.MeshStandardMaterial({ color: 0x3e2714, roughness: 0.85 });
+    addMesh(scene, new THREE.CylinderGeometry(0.024, 0.035, 0.45, 10), trunkMat, [plantX, 0.98, plantZ], [0.12, 0.2, -0.1], true);
+
+    const foliageMat = new THREE.MeshStandardMaterial({ color: 0x1f4728, roughness: 0.65 });
+    const foliageCluster = [
+      [plantX - 0.04, 1.15, plantZ + 0.02, 0.14],
+      [plantX + 0.06, 1.22, plantZ - 0.04, 0.16],
+      [plantX, 1.28, plantZ, 0.18],
+    ];
+    foliageCluster.forEach(([fx, fy, fz, fr]) => {
+      addMesh(scene, new THREE.SphereGeometry(fr, 12, 12), foliageMat, [fx, fy, fz], [0, 0, 0], true);
+    });
+    return;
+  }
+
+  if (type === "fiddle_leaf") {
+    // Tall Broadleaf Fiddle-Leaf in Warm Terracotta Planter
+    const potMat = new THREE.MeshStandardMaterial({ color: 0x8b4513, roughness: 0.65 });
+    addMesh(scene, new THREE.CylinderGeometry(0.20, 0.15, 0.52, 20), potMat, [plantX, 0.26, plantZ], [0, 0, 0], true, true);
+
+    const stemMat = new THREE.MeshStandardMaterial({ color: 0x3d2817, roughness: 0.8 });
+    addMesh(scene, new THREE.CylinderGeometry(0.02, 0.028, 1.1, 8), stemMat, [plantX, 0.95, plantZ], [0.04, 0, 0.04], true);
+
+    const leafMat = new THREE.MeshStandardMaterial({ color: 0x1b4d24, roughness: 0.50 });
+    for (let i = 0; i < 8; i++) {
+      const ang = (i / 8) * Math.PI * 2;
+      const ly = 0.65 + i * 0.12;
+      const lx = plantX + Math.cos(ang) * 0.12;
+      const lz = plantZ + Math.sin(ang) * 0.12;
+      addMesh(scene, new THREE.BoxGeometry(0.18, 0.005, 0.26), leafMat, [lx, ly, lz], [0.35 * Math.sin(ang), ang, 0.35 * Math.cos(ang)], true);
+    }
+    return;
+  }
+
+  if (type === "succulents") {
+    // Modern Basalt Planter with Geometric Succulents
+    const potMat = new THREE.MeshStandardMaterial({ color: 0x1f242d, roughness: 0.40, metalness: 0.15 });
+    addMesh(scene, new THREE.BoxGeometry(0.38, 0.46, 0.38), potMat, [plantX, 0.23, plantZ], [0, 0.25, 0], true, true);
+
+    const leafMat = new THREE.MeshStandardMaterial({ color: 0x1b4332, roughness: 0.42 });
+    const tipMat = new THREE.MeshStandardMaterial({ color: 0x40916c, roughness: 0.45 });
+    for (let i = 0; i < 14; i++) {
+      const ang = (i / 14) * Math.PI * 2;
+      const h = 0.45 + (i % 4) * 0.12;
+      const lx = plantX + Math.cos(ang) * 0.08;
+      const lz = plantZ + Math.sin(ang) * 0.08;
+      addMesh(scene, new THREE.BoxGeometry(0.04, h, 0.01), i % 2 === 0 ? leafMat : tipMat, [lx, 0.46 + h / 2, lz], [0.1 * Math.sin(ang), ang, 0.1 * Math.cos(ang)], true);
+    }
+    return;
+  }
+
+  // Default: Sculptural Snake Plant in Fluted Matte White Ceramic Planter
   const potMat = new THREE.MeshStandardMaterial({ color: 0xf6f5f2, roughness: 0.35, metalness: 0.05 });
   addMesh(scene, new THREE.CylinderGeometry(0.17, 0.13, 0.44, 24), potMat, [plantX, 0.22, plantZ], [0, 0, 0], true, true);
-  // Pot soil bed
   const soilMat = new THREE.MeshStandardMaterial({ color: 0x1c140d, roughness: 0.95 });
   addMesh(scene, new THREE.CylinderGeometry(0.16, 0.16, 0.04, 16), soilMat, [plantX, 0.43, plantZ]);
 
-  // Architectural Snake Plant (Sansevieria) sword leaves of staggered heights
   const leafMat = new THREE.MeshStandardMaterial({ color: 0x1c441f, roughness: 0.48 });
   const leafEdgeMat = new THREE.MeshStandardMaterial({ color: 0xb5a638, roughness: 0.55 });
   const leafHeights = [0.45, 0.62, 0.78, 0.54, 0.72, 0.85, 0.58, 0.68, 0.48, 0.75, 0.65, 0.52];
@@ -390,10 +643,10 @@ function buildRoom(
 }
 
 // ── 2. Premium Ergonomic Executive High-Back Chair (Behind Interviewer) ─────
-function buildOfficeChair(scene: THREE.Scene, leatherTex: THREE.Texture | null) {
+function buildOfficeChair(scene: THREE.Scene, leatherTex: THREE.Texture | null, chairColor = 0x191a1e) {
   const leatherMat = new THREE.MeshStandardMaterial({
     map: leatherTex || null,
-    color: 0x191a1e,
+    color: chairColor,
     roughness: 0.45,
     metalness: 0.08,
   });
@@ -407,25 +660,23 @@ function buildOfficeChair(scene: THREE.Scene, leatherTex: THREE.Texture | null) 
   // Lumbar support cushion arch
   addMesh(scene, new THREE.BoxGeometry(0.44, 0.14, 0.04), darkPlasticMat, [0, 0.96, -0.19], [-0.08, 0, 0]);
 
-  // Polished aluminum rear support spine
+  // Rear support spine & headrest support
   addMesh(scene, new THREE.BoxGeometry(0.055, 0.72, 0.035), chromeMat, [0, 1.15, -0.27], [-0.08, 0, 0]);
-  // Headrest support bar
   addMesh(scene, new THREE.CylinderGeometry(0.012, 0.012, 0.18, 8), chromeMat, [0, 1.50, -0.26]);
 
   // Ergonomic Seat cushion with beveled waterfall front
   addMesh(scene, new THREE.BoxGeometry(0.56, 0.085, 0.52), leatherMat, [0, 0.62, -0.06], [0, 0, 0], true, true);
 
-  // 3D Executive Armrests with soft-touch pads and polished chrome posts
+  // 3D Executive Armrests
   addMesh(scene, new THREE.BoxGeometry(0.07, 0.03, 0.30), darkPlasticMat, [-0.31, 0.82, -0.04]);
   addMesh(scene, new THREE.BoxGeometry(0.07, 0.03, 0.30), darkPlasticMat, [0.31, 0.82, -0.04]);
   addMesh(scene, new THREE.CylinderGeometry(0.016, 0.016, 0.22, 10), chromeMat, [-0.31, 0.71, -0.04]);
   addMesh(scene, new THREE.CylinderGeometry(0.016, 0.016, 0.22, 10), chromeMat, [0.31, 0.71, -0.04]);
 
-  // Heavy-duty pneumatic cylinder & 5-star polished aluminum base
+  // Pneumatic cylinder & 5-star polished aluminum base
   addMesh(scene, new THREE.CylinderGeometry(0.032, 0.032, 0.44, 12), chromeMat, [0, 0.32, -0.06]);
   addMesh(scene, new THREE.CylinderGeometry(0.34, 0.36, 0.04, 5), chromeMat, [0, 0.08, -0.06]);
 
-  // Caster wheels on base
   for (let c = 0; c < 5; c++) {
     const cAng = (c / 5) * Math.PI * 2;
     addMesh(
@@ -437,35 +688,39 @@ function buildOfficeChair(scene: THREE.Scene, leatherTex: THREE.Texture | null) 
   }
 }
 
-// ── 3. Executive Dark Walnut Interview Desk ──────────────────────────────────
-function buildDesk(scene: THREE.Scene, woodTex: THREE.Texture | null): { deskTopY: number } {
+// ── 3. Executive Interview Desk ──────────────────────────────────────────────
+function buildDesk(
+  scene: THREE.Scene,
+  woodTex: THREE.Texture | null,
+  profile: AvatarRoomProfile
+): { deskTopY: number } {
   const deskMat = new THREE.MeshStandardMaterial({
     map: woodTex || null,
-    color: 0x482d1c, // Rich, sophisticated dark walnut
-    roughness: 0.36,
-    metalness: 0.04,
+    color: profile.deskColor,
+    roughness: profile.deskRoughness,
+    metalness: profile.deskMetalness,
   });
-  const darkMat = new THREE.MeshStandardMaterial({ color: 0x1a1512, roughness: 0.58, metalness: 0.04 });
-  const trimMat = new THREE.MeshStandardMaterial({ color: 0x7c7368, roughness: 0.25, metalness: 0.82 });
+  const darkMat = new THREE.MeshStandardMaterial({ color: 0x141518, roughness: 0.58, metalness: 0.04 });
+  const trimMat = new THREE.MeshStandardMaterial({
+    color: profile.trimColor,
+    roughness: profile.trimRoughness,
+    metalness: profile.trimMetalness,
+  });
   const deskTopY = 0.78;
 
-  // Main Desktop surface (Substantial executive thickness with beveled front profile)
+  // Main Desktop surface
   addMesh(scene, new THREE.BoxGeometry(1.92, 0.048, 0.88), deskMat, [0, deskTopY - 0.024, 0.36], [0, 0, 0], true, true);
 
-  // Brushed Gunmetal Trim along edge
+  // Metallic Trim along edge
   addMesh(scene, new THREE.BoxGeometry(1.94, 0.022, 0.03), trimMat, [0, deskTopY + 0.007, 0.785]);
 
-  // Front Fascia Apron
+  // Aprons & Modesty Panel
   addMesh(scene, new THREE.BoxGeometry(1.88, 0.18, 0.04), darkMat, [0, 0.63, 0.78], [0, 0, 0], true, false);
-
-  // Side Aprons
   addMesh(scene, new THREE.BoxGeometry(0.04, 0.18, 0.78), darkMat, [-0.93, 0.63, 0.39]);
   addMesh(scene, new THREE.BoxGeometry(0.04, 0.18, 0.78), darkMat, [0.93, 0.63, 0.39]);
-
-  // Modesty Panel
   addMesh(scene, new THREE.BoxGeometry(1.86, 0.56, 0.76), darkMat, [0, 0.38, 0.38], [0, 0, 0], false, true);
 
-  // Solid Architectural Column Legs with brushed metal foot caps
+  // Solid Column Legs with metal foot caps
   const legGeo = new THREE.BoxGeometry(0.075, 0.74, 0.075);
   const footCapGeo = new THREE.BoxGeometry(0.082, 0.04, 0.082);
   [
@@ -478,7 +733,7 @@ function buildDesk(scene: THREE.Scene, woodTex: THREE.Texture | null): { deskTop
     addMesh(scene, footCapGeo, trimMat, [x, 0.02, z]);
   });
 
-  // Executive Stitched Black Leather Blotter Pad (where hands rest)
+  // Stitched Leather Blotter Pad
   const blotterMat = new THREE.MeshStandardMaterial({ color: 0x141417, roughness: 0.62, metalness: 0.05 });
   addMesh(scene, new THREE.BoxGeometry(0.98, 0.005, 0.48), blotterMat, [0, deskTopY + 0.0025, 0.28], [0, 0, 0], false, true);
 
@@ -533,9 +788,71 @@ function buildLaptop(scene: THREE.Scene, deskTopY: number) {
   scene.add(glow);
 }
 
-// ── 5. Contemporary Executive Desk Accessories ──────────────────────────────
-function buildAccessories(scene: THREE.Scene, deskTopY: number) {
-  // 5.1 Clear Crystal Water Tumbler on Right Side
+// ── 5. Tailored Desk Accessories per Avatar Profile ─────────────────────────
+function buildAccessories(scene: THREE.Scene, deskTopY: number, accessoryType: AvatarRoomProfile["deskAccessoryType"]) {
+  if (accessoryType === "tech_architect") {
+    // Meera Iyer: Technical Architecture Notebook, Glass Prism, Metallic Stylus
+    const bookMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.55 });
+    const pageMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.85 });
+    addMesh(scene, new THREE.BoxGeometry(0.18, 0.014, 0.24), bookMat, [-0.42, deskTopY + 0.007, 0.30], [0, 0.08, 0], false, true);
+    addMesh(scene, new THREE.BoxGeometry(0.174, 0.012, 0.234), pageMat, [-0.42, deskTopY + 0.007, 0.30], [0, 0.08, 0]);
+
+    // Anodized Stylus
+    const stylus = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.003, 0.003, 0.14, 12),
+      new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.2, metalness: 0.85 })
+    );
+    stylus.rotation.z = Math.PI / 2;
+    stylus.position.set(-0.42, deskTopY + 0.018, 0.20);
+    scene.add(stylus);
+
+    // Modern Glass Water Tumbler on Right Side
+    const glassMat = new THREE.MeshStandardMaterial({ color: 0xedf7ff, roughness: 0.04, transparent: true, opacity: 0.45 });
+    addMesh(scene, new THREE.CylinderGeometry(0.030, 0.026, 0.082, 18), glassMat, [0.46, deskTopY + 0.041, 0.28]);
+    const coasterMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.2, metalness: 0.8 });
+    addMesh(scene, new THREE.CylinderGeometry(0.042, 0.042, 0.004, 20), coasterMat, [0.46, deskTopY + 0.002, 0.28]);
+    return;
+  }
+
+  if (accessoryType === "vp_strategy") {
+    // Arjun Mehta: Executive Leather Strategy Folder, Chrome Carafe & Tumbler
+    const folderMat = new THREE.MeshStandardMaterial({ color: 0x2b1e16, roughness: 0.45, metalness: 0.08 });
+    const pageMat = new THREE.MeshStandardMaterial({ color: 0xfbfbf8, roughness: 0.85 });
+    addMesh(scene, new THREE.BoxGeometry(0.20, 0.016, 0.26), folderMat, [-0.44, deskTopY + 0.008, 0.30], [0, 0.05, 0], false, true);
+    addMesh(scene, new THREE.BoxGeometry(0.194, 0.014, 0.254), pageMat, [-0.44, deskTopY + 0.008, 0.30], [0, 0.05, 0]);
+
+    // Polished Silver Ballpoint Pen
+    const pen = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.0035, 0.0035, 0.15, 10),
+      new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.15, metalness: 0.95 })
+    );
+    pen.rotation.z = Math.PI / 2;
+    pen.position.set(-0.44, deskTopY + 0.019, 0.19);
+    scene.add(pen);
+
+    // Crystal Tumbler on Chrome Coaster
+    const glassMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.04, transparent: true, opacity: 0.50 });
+    addMesh(scene, new THREE.CylinderGeometry(0.034, 0.028, 0.084, 18), glassMat, [0.46, deskTopY + 0.042, 0.28]);
+    const coasterMat = new THREE.MeshStandardMaterial({ color: 0xd8d8d8, roughness: 0.15, metalness: 0.92 });
+    addMesh(scene, new THREE.CylinderGeometry(0.044, 0.044, 0.004, 20), coasterMat, [0.46, deskTopY + 0.002, 0.28]);
+    return;
+  }
+
+  if (accessoryType === "infra_manager") {
+    // Rohan Verma: Engineering Logbook, Matte Black Ceramic Coffee Mug
+    const bookMat = new THREE.MeshStandardMaterial({ color: 0x181a20, roughness: 0.65 });
+    addMesh(scene, new THREE.BoxGeometry(0.18, 0.014, 0.24), bookMat, [-0.42, deskTopY + 0.007, 0.30], [0, 0.06, 0], false, true);
+
+    // Matte Ceramic Coffee Mug
+    const mugMat = new THREE.MeshStandardMaterial({ color: 0x22242a, roughness: 0.55 });
+    addMesh(scene, new THREE.CylinderGeometry(0.034, 0.032, 0.078, 18), mugMat, [0.46, deskTopY + 0.039, 0.28]);
+    // Coaster
+    const coasterMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.3, metalness: 0.5 });
+    addMesh(scene, new THREE.CylinderGeometry(0.044, 0.044, 0.004, 20), coasterMat, [0.46, deskTopY + 0.002, 0.28]);
+    return;
+  }
+
+  // Default (Priya Sharma - HR Executive): Stitched Leather Notebook & Crystal Tumbler
   const glassTumblerMat = new THREE.MeshStandardMaterial({
     color: 0xedf7ff,
     roughness: 0.04,
@@ -545,26 +862,17 @@ function buildAccessories(scene: THREE.Scene, deskTopY: number) {
   });
   addMesh(scene, new THREE.CylinderGeometry(0.032, 0.028, 0.082, 18), glassTumblerMat, [0.46, deskTopY + 0.041, 0.28]);
 
-  // Water level inside glass
-  const waterMat = new THREE.MeshStandardMaterial({
-    color: 0x38bdf8,
-    roughness: 0.02,
-    transparent: true,
-    opacity: 0.65,
-  });
+  const waterMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.02, transparent: true, opacity: 0.65 });
   addMesh(scene, new THREE.CylinderGeometry(0.030, 0.026, 0.055, 18), waterMat, [0.46, deskTopY + 0.030, 0.28]);
 
-  // Minimalist Brushed Aluminum Coaster
   const coasterMat = new THREE.MeshStandardMaterial({ color: 0x32353c, roughness: 0.3, metalness: 0.85 });
   addMesh(scene, new THREE.CylinderGeometry(0.044, 0.044, 0.004, 20), coasterMat, [0.46, deskTopY + 0.002, 0.28]);
 
-  // 5.2 Executive Stitched Leather Notebook on Left Side
   const bookMat = new THREE.MeshStandardMaterial({ color: 0x1c2230, roughness: 0.60, metalness: 0.04 });
   const pageMat = new THREE.MeshStandardMaterial({ color: 0xf4eedd, roughness: 0.85 });
   addMesh(scene, new THREE.BoxGeometry(0.18, 0.014, 0.24), bookMat, [-0.42, deskTopY + 0.007, 0.30], [0, 0.06, 0], false, true);
   addMesh(scene, new THREE.BoxGeometry(0.174, 0.012, 0.234), pageMat, [-0.42, deskTopY + 0.007, 0.30], [0, 0.06, 0]);
 
-  // Matte Black Titanium Ballpoint Pen
   const pen = new THREE.Mesh(
     new THREE.CylinderGeometry(0.0035, 0.0035, 0.15, 10),
     new THREE.MeshStandardMaterial({ color: 0x111215, roughness: 0.22, metalness: 0.90 })
@@ -808,11 +1116,14 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
     camera.position.set(0, 1.22, 1.62);
     camera.lookAt(0, 1.05, 0.08);
 
-    // 5-Point Cinematic Professional Corporate Lighting Rig
-    scene.add(new THREE.AmbientLight(0xfffaf4, 0.68));
+    // Get Avatar Room & Posture Profile
+    const profile = getAvatarRoomProfile(targetModelUrl, interviewerName);
+
+    // 5-Point Cinematic Professional Corporate Lighting Rig tailored to Avatar Profile
+    scene.add(new THREE.AmbientLight(0xfffaf4, 0.65));
 
     // Warm Key Daylight (From glass partition direction at 45° angle)
-    const key = new THREE.DirectionalLight(0xfff6e8, 1.40);
+    const key = new THREE.DirectionalLight(profile.keyLightColor, profile.keyLightIntensity);
     key.position.set(2.0, 3.4, 2.0);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);
@@ -826,7 +1137,7 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
     scene.add(key);
 
     // Cool Soft Fill Light (From right side, keeping facial expressions flattering & clear)
-    const fill = new THREE.DirectionalLight(0xe6f0fa, 0.48);
+    const fill = new THREE.DirectionalLight(profile.fillLightColor, profile.fillLightIntensity);
     fill.position.set(-2.4, 2.2, 1.6);
     scene.add(fill);
 
@@ -842,8 +1153,8 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
     scene.add(downlight);
     scene.add(downlight.target);
 
-    // Warm Diffuse Desk Bounce Light (Natural upward bounce from walnut wood table)
-    const bounce = new THREE.PointLight(0xffe2c4, 0.25, 2.2);
+    // Diffuse Desk Bounce Light (Natural upward bounce from desk table)
+    const bounce = new THREE.PointLight(profile.bounceLightColor, 0.25, 2.2);
     bounce.position.set(0, 0.84, 0.35);
     scene.add(bounce);
 
@@ -854,11 +1165,11 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
     let leatherTex: THREE.Texture | null = null;
 
     const tryBuildEnvironment = () => {
-      buildRoom(scene, woodTex, officeBgTex);
-      buildOfficeChair(scene, leatherTex);
-      const { deskTopY } = buildDesk(scene, woodTex);
+      buildRoom(scene, woodTex, officeBgTex, profile);
+      buildOfficeChair(scene, leatherTex, profile.chairLeatherColor);
+      const { deskTopY } = buildDesk(scene, woodTex, profile);
       buildLaptop(scene, deskTopY);
-      buildAccessories(scene, deskTopY);
+      buildAccessories(scene, deskTopY, profile.deskAccessoryType);
     };
 
     tl.load(
@@ -1318,21 +1629,24 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
         if (lLeg) lLeg.rotation.set(Math.PI / 2.15, 0, 0);
         if (rLeg) rLeg.rotation.set(Math.PI / 2.15, 0, 0);
 
-        // 1. Spine: 90° upright from horizontal tabletop, 2° lower spine, 5° upper spine / chest forward lean
+        // 1. Spine: Upright from horizontal tabletop with tailored slight attentive lean
         const spine = findBone(bones, "Spine");
         const spine1 = findBone(bones, "Spine1");
         const spine2 = findBone(bones, "Spine2");
 
         const breathe = Math.sin(t * 1.5) * 0.004; // 1-2° natural chest breathing
-        if (spine) spine.rotation.set(-0.035 + breathe * 0.5, 0, 0); // 2.0° lower spine
-        if (spine1) spine1.rotation.set(-0.015 + breathe * 0.3, 0, 0);
-        if (spine2) spine2.rotation.set(-0.020 + breathe * 0.2, 0, 0); // ~4.0° total attentive lean
+        const sLean = profile.posture.spineLean;
+        const usLean = profile.posture.upperSpineLean;
 
-        // 2. Head and Neck: 0-5° horizontal rotation, 0-3° tilt, 3-5° forward inclination, direct eye contact
+        if (spine) spine.rotation.set(sLean + breathe * 0.5, 0, 0);
+        if (spine1) spine1.rotation.set(usLean * 0.6 + breathe * 0.3, 0, 0);
+        if (spine2) spine2.rotation.set(usLean * 0.4 + breathe * 0.2, 0, 0);
+
+        // 2. Head and Neck: 0-5° horizontal rotation, attentive tilt, direct eye contact
         const neck = findBone(bones, "Neck");
         const head = findBone(bones, "Head");
         const nodAmt = listening
-          ? Math.sin(t * 0.9) * 0.022 // Subtle listening nod (1-3°)
+          ? Math.sin(t * 0.9) * profile.posture.listeningNodAmp
           : speaking
           ? Math.sin(t * 2.4) * 0.026
           : 0;
@@ -1341,11 +1655,11 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
           head.rotation.set(
             -0.035 + gazeDir.y * -0.08 + nodAmt,
             gazeDir.x * -0.14,
-            0
+            profile.posture.headTilt
           );
         }
 
-        // 3. Shoulders / Clavicles: X = 7°, Y = 190° (left) / 170° (right), Z = -7° / +7°
+        // 3. Shoulders / Clavicles: Natural relaxed desk posture
         const lShoulder = findBone(bones, "LeftShoulder");
         const rShoulder = findBone(bones, "RightShoulder");
         if (lShoulder) lShoulder.rotation.set(0.12, 0.17, -0.12);
@@ -1366,49 +1680,21 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
         // Subtle organic breathing cadence along desk (tabletop height is Y = 0.78m)
         const breatheDesk = Math.sin(t * 1.5) * 0.0015;
 
-        const modelLower = targetModelUrl.toLowerCase();
-        const nameLower = interviewerName.toLowerCase();
-
         // ── 4–15. Professional Corporate Interview Posture Across ALL Avatars ───
-        // Upper arm: X = 30°, Y = 190°/170°, Z = -15°/+15° (25–35° away from torso)
-        // Elbow: ~90° bend (85–100°), 5–15 cm forward from body
-        // Forearms: X = 85° forward toward candidate/camera, parallel to tabletop
-        // Wrists: X = 3°, Y = 0°, Z = -5°/+5° (neutral)
-        // Hands: 15–25 cm to left & right of laptop centerline (X = +-0.18m), resting on tabletop
-        // Fingers: 10–25° natural flexion
+        const hDist = profile.posture.handDistX;
+        const hY = profile.posture.handPosY;
+        const gCadence = speaking ? Math.sin(gestureT * 1.6) * profile.posture.speakingGestureAmp : 0;
 
-        let targetL: THREE.Vector3;
-        let targetR: THREE.Vector3;
-        let wristRotL = [0.05, 0, -0.08]; // X = 3°, Y = 0°, Z = -5°
-        let wristRotR = [0.05, 0, 0.08];  // X = 3°, Y = 0°, Z = +5°
-        let fingerCurl = 0.20; // 10–25° natural finger flexion
+        const targetL = new THREE.Vector3(hDist, hY + breatheDesk, 0.23);
+        const targetR = new THREE.Vector3(-hDist, hY + breatheDesk + gCadence, 0.23);
+        const wristRotL = [0.05, 0, -0.08];
+        const wristRotR = [0.05, 0, 0.08];
+        const fingerCurl = profile.posture.fingerCurl;
         const poleL = new THREE.Vector3(0.52, -0.48, -0.22);
         const poleR = new THREE.Vector3(-0.52, -0.48, -0.22);
 
-        if (modelLower.includes("avaturn") || nameLower.includes("arjun")) {
-          // Arjun Mehta: Hands resting on tabletop beside laptop, 18cm from center
-          const gCadence = speaking ? Math.sin(gestureT * 1.5) * 0.005 : 0;
-          targetL = new THREE.Vector3(0.180, 0.785 + breatheDesk, 0.23);
-          targetR = new THREE.Vector3(-0.180, 0.785 + breatheDesk + gCadence, 0.23);
-        } else if (modelLower.includes("brunette") || nameLower.includes("meera")) {
-          // Meera Iyer: Hands resting on tabletop beside laptop, 18cm from center
-          const gCadence = speaking ? Math.sin(gestureT * 1.8) * 0.004 : 0;
-          targetL = new THREE.Vector3(0.180, 0.785 + breatheDesk, 0.23);
-          targetR = new THREE.Vector3(-0.180, 0.785 + breatheDesk + gCadence, 0.23);
-        } else if (modelLower.includes("avatarsdk") || nameLower.includes("rohan")) {
-          // Rohan Verma: Hands resting on tabletop beside laptop, 18cm from center
-          const gCadence = speaking ? Math.sin(gestureT * 1.8) * 0.004 : 0;
-          targetL = new THREE.Vector3(0.180, 0.788 + breatheDesk, 0.23);
-          targetR = new THREE.Vector3(-0.180, 0.788 + breatheDesk + gCadence, 0.23);
-        } else {
-          // Priya Sharma (Best - Default): Hands resting on tabletop beside laptop, 18cm from center
-          const gCadence = speaking ? Math.sin(gestureT * 1.5) * 0.005 : 0;
-          targetL = new THREE.Vector3(0.180, 0.785 + breatheDesk, 0.23);
-          targetR = new THREE.Vector3(-0.180, 0.785 + breatheDesk + gCadence, 0.23);
-        }
-
         // Apply Two-Bone IK ensuring forward-angled upper arms (25-35°), elbows 5-15cm in front of torso,
-        // ~90° elbow bend, forearms ~85° forward, and hands 18cm on either side of laptop on tabletop:
+        // ~90° elbow bend, forearms ~85° forward, and hands resting beside laptop on tabletop:
         if (lArm && lForeArm && lHand) {
           solveTwoBoneIK(lArm, lForeArm, lHand, targetL, poleL);
           lHand.rotation.set(wristRotL[0], wristRotL[1], wristRotL[2]);
@@ -1570,9 +1856,17 @@ export const ThreeVRMAvatarCanvas: React.FC<ThreeVRMAvatarCanvasProps> = ({
 
   return (
     <div
-      className={`relative w-full h-full min-h-[420px] bg-[#1a1208] rounded-2xl overflow-hidden shadow-2xl border border-slate-800/80 ${className}`}
+      className={`interviewer-frame relative w-full h-full min-h-[420px] bg-[#1a1208] rounded-2xl overflow-hidden shadow-2xl border border-slate-800/80 ${className}`}
     >
       <div ref={containerRef} className="w-full h-full absolute inset-0" />
+
+      {/* ── Depth-of-Field Blur & Focus Overlays ── */}
+      {/* 1. Subtle peripheral depth-of-field background softening blur */}
+      <div className="dof-blur-overlay" aria-hidden="true" />
+      {/* 2. Natural cinematic peripheral vignette */}
+      <div className="dof-vignette" aria-hidden="true" />
+      {/* 3. Subtle center subject keylight enhancement to make avatar pop */}
+      <div className="dof-lighting-pop" aria-hidden="true" />
 
       {/* Loading Overlay */}
       {isLoading && (

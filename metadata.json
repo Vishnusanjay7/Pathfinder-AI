@@ -1,0 +1,11 @@
+{
+  "name": "Pathfinder AI",
+  "description": "AI-powered career coaching, mock interview practice, code execution engine, and resume evaluation platform.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

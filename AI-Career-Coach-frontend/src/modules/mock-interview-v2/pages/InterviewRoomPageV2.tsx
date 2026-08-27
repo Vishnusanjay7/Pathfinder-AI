@@ -245,7 +245,7 @@ export const InterviewRoomPageV2: React.FC = () => {
       {/* Main Corporate Boardroom Stage */}
       <div className="relative flex-1 w-full grid grid-cols-1 lg:grid-cols-4 overflow-hidden p-4 gap-4 bg-[#030712]">
         {/* Left / Center 3 Columns: High-Definition Human Interviewer Presenter */}
-        <div className="lg:col-span-3 h-full relative rounded-3xl overflow-hidden border border-[#14233D] shadow-2xl bg-black">
+        <div className="interviewer-frame lg:col-span-3 h-full relative rounded-3xl overflow-hidden border border-[#14233D] shadow-2xl bg-black">
           <HumanAvatarPresenter
             interviewer={interviewer}
             state={avatarState}

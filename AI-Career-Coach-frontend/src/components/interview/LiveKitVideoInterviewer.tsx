@@ -167,7 +167,7 @@ export const LiveKitVideoInterviewer: React.FC<LiveKitVideoInterviewerProps> = (
 
   return (
     <div
-      className={`relative w-full h-full min-h-[440px] bg-[#050C17] rounded-2xl overflow-hidden flex flex-col items-center justify-center border border-[#1E3150] select-none ${className}`}
+      className={`interviewer-frame relative w-full h-full min-h-[440px] bg-[#050C17] rounded-2xl overflow-hidden flex flex-col items-center justify-center border border-[#1E3150] select-none ${className}`}
     >
       {/* ── 1. REAL-TIME LIVEKIT VIDEO ELEMENT (NO 3D/CANVAS/PHOTO OVERLAYS) ── */}
       <div className="relative w-full h-full flex items-center justify-center bg-black overflow-hidden">
@@ -183,6 +183,11 @@ export const LiveKitVideoInterviewer: React.FC<LiveKitVideoInterviewerProps> = (
             maxHeight: "100%",
           }}
         />
+
+        {/* ── Depth-of-Field Blur & Focus Overlays ── */}
+        <div className="dof-blur-overlay" aria-hidden="true" />
+        <div className="dof-vignette" aria-hidden="true" />
+        <div className="dof-lighting-pop" aria-hidden="true" />
 
         {/* ── 2. CONNECTING / INITIALIZING OR UNAVAILABLE STATE (NO FAKE PHOTO OVERLAYS) ── */}
         {!remoteVideoTrack && (

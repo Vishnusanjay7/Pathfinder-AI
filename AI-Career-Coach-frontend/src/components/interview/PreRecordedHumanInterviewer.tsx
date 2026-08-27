@@ -164,7 +164,7 @@ export const PreRecordedHumanInterviewer: React.FC<PreRecordedHumanInterviewerPr
 
   return (
     <div
-      className={`relative w-full h-full bg-[#050C17] overflow-hidden flex flex-col justify-center items-center select-none ${className}`}
+      className={`interviewer-frame relative w-full h-full bg-[#050C17] overflow-hidden flex flex-col justify-center items-center select-none ${className}`}
       data-testid="prerecorded-human-interviewer"
     >
       {/* ── 1. REAL HD HUMAN INTERVIEWER VIDEO (AI LIP-SYNCED OR AMBIENT) ── */}
@@ -186,6 +186,11 @@ export const PreRecordedHumanInterviewer: React.FC<PreRecordedHumanInterviewerPr
           }
         }}
       />
+
+      {/* ── Depth-of-Field Blur & Focus Overlays ── */}
+      <div className="dof-blur-overlay" aria-hidden="true" />
+      <div className="dof-vignette" aria-hidden="true" />
+      <div className="dof-lighting-pop" aria-hidden="true" />
 
       {/* Error Card if video asset fails to load */}
       {videoError && (

@@ -82,7 +82,7 @@ export const HumanAvatarPresenter: React.FC<HumanAvatarPresenterProps> = ({
   return (
     <div
       data-testid="human-avatar-presenter-v2"
-      className={`relative w-full h-full bg-black overflow-hidden flex items-center justify-center select-none ${className}`}
+      className={`interviewer-frame relative w-full h-full bg-black overflow-hidden flex items-center justify-center select-none ${className}`}
     >
       {/* Background Ambience */}
       <div
@@ -103,6 +103,11 @@ export const HumanAvatarPresenter: React.FC<HumanAvatarPresenterProps> = ({
         className="relative z-10 w-full h-full object-cover"
         style={{ objectPosition: "center 25%" }}
       />
+
+      {/* ── Depth-of-Field Blur & Focus Overlays ── */}
+      <div className="dof-blur-overlay z-15" aria-hidden="true" />
+      <div className="dof-vignette z-15" aria-hidden="true" />
+      <div className="dof-lighting-pop z-15" aria-hidden="true" />
 
       {/* Top Floating Overlay: Live State Badge & Phase Indicator */}
       <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
